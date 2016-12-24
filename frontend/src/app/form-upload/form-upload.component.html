@@ -1,2 +1,13 @@
-<h1>Form Upload!</h1>
-<router-outlet></router-outlet>
+<form [formGroup]="formSplitter">
+  <div class="input-file__container">
+    <input type="file" formControlName="file">
+  </div>
+  <div class="options__container" formGroupName="options">
+    <input type="number" formControlName="from">
+    <input type="number" formControlName="to">
+  </div>
+  <button>split!</button>
+  <p>Value: {{ formSplitter.value | json }}</p>
+  <p>Validation status: {{ formSplitter.status }}</p>
+</form>
+
