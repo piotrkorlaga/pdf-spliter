@@ -1,20 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { UploadFileComponent } from './upload-file/upload-file.component';
+import { AppRoutingModule }        from './app-routing.module';
+
+import { PageNotFoundComponent } from './not-found.component'
+
+import { HomeModule } from './home/home.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    UploadFileComponent
-  ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HomeModule,
+    AppRoutingModule,
+    ReactiveFormsModule
+  ],
+  declarations: [
+    AppComponent,
+    PageNotFoundComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
