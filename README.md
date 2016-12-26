@@ -1,6 +1,6 @@
 Instalowanie backendu:
-1. Instalacja mavena
 
+1. Instalacja mavena
 
 Uruchomienie backendu:
 
@@ -9,11 +9,13 @@ Uruchomienie backendu:
 3. mvn spring-boot:run
 
 Instalowanie frontendu:
+
 1. Instalacja npm
 2. cd frontend
 3. npm install
 3. npm install -g angular-cli
 
-Uruchomienie frontendu
+Uruchomienie frontendu:
+
 1. cd frontend
 2. ng serve
