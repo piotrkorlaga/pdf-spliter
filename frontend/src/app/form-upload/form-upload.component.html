@@ -1,13 +1,11 @@
-<form #formUpload="ngForm">
-    <div >
+<form (ngSubmit)="splitFile()" #formUpload="ngForm">
+    <div>
         <input type="file" [(ngModel)]="model.file" name="file">
     </div>
-    <div >
+    <div>
         <input type="number" [(ngModel)]="model.options.from" name="from" required>
         <input type="number" [(ngModel)]="model.options.to" name="to" required>
     </div>
-    <button>split!</button>
-    <p>Value: {{ model | json }}</p>
-    <p>Validation status: {{ formUpload.form.valid }}</p>
+    <button type="submit">split!</button>
 </form>
 
