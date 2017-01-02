@@ -1,13 +1,29 @@
-<form [formGroup]="formSplitter">
-  <div class="input-file__container">
-    <input type="file" formControlName="file">
-  </div>
-  <div class="options__container" formGroupName="options">
-    <input type="number" formControlName="from">
-    <input type="number" formControlName="to">
-  </div>
-  <button>split!</button>
-  <p>Value: {{ formSplitter.value | json }}</p>
-  <p>Validation status: {{ formSplitter.status }}</p>
+<form (ngSubmit)="splitFile()" #formUpload="ngForm">
+    <div class="row form-group">
+        <div class="input-group">
+            <label class="input-group-btn">
+                    <span class="btn btn-primary">
+                        Browse<input type="file" [(ngModel)]="model.file" name="file" style="display: none;">
+                    </span>
+            </label>
+            <input type="text" class="form-control" readonly>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label for="from" class="col-sm-2 col-sm-offset-4 col-form-label text-right">from</label>
+        <div class="col-sm-2">
+            <input type="number" id="from" class="form-control" [(ngModel)]="model.options.from" name="from" required>
+        </div>
+
+        <label for="to" class="col-sm-2  col-form-label text-right">to</label>
+        <div class="col-sm-2">
+            <input id="to" type="number" class="form-control" [(ngModel)]="model.options.to" name="to" required>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-default btn-block center-block ">split!</button>
+        </div>
+    </div>
 </form>
 

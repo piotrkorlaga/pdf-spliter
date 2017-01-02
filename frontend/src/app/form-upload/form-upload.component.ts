@@ -1,23 +1,25 @@
-import { Component, Inject } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormUploadModel} from './form-upload.model';
+import {FormUploadService} from "./form-upload.service";
 
 @Component({
-  selector: 'form-upload',
-  templateUrl: './form-upload.component.html'
-  // styleUrls: ['./form-upload.component.scss']
+    selector: 'form-upload',
+    templateUrl: './form-upload.component.html'
+    // styleUrls: ['./form-upload.component.scss']
 })
 export class FormUploadComponent {
-  formSplitter: FormGroup;
+    model = new FormUploadModel();
 
-  constructor(@Inject(FormBuilder) fb: FormBuilder){
-    this.formSplitter = fb.group({
-      //TODO: set validation for file
-      file: '',
-      options:fb.group({
-        from: ['1', <any>Validators.required],
-        to: ['2', <any>Validators.required],
-      }),
-    });
-  }
+    constructor(private formUploadService: FormUploadService) {
 
+    }
+
+    splitFile() {
+        this.formUploadService.sendFile(this.model.file, this.model.options.from, this.model.options.to)
+            .subscribe(
+                hero => console.log(hero),
+                error => console.log(error)
+            );
+    }
 }
+
