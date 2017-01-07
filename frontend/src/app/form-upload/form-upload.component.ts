@@ -9,23 +9,22 @@ import {FormUploadService} from "./form-upload.service";
 })
 export class FormUploadComponent {
     model = new FormUploadModel();
+    fileName: string;
+    files: any;
 
     constructor(private formUploadService: FormUploadService) {
 
     }
 
     onChange(event) {
-        var files = event.srcElement.files;
-        console.log(files);
-        this.model.file = files[0];
+        this.files = event.srcElement.files;
+        this.fileName = this.files[0].name;
     }
 
     splitFile() {
-        this.formUploadService.sendFile(this.model.file, this.model.options.from, this.model.options.to)
-            .subscribe(
-                hero => console.log(hero),
-                error => console.log(error)
-            );
+        this.formUploadService.sendFile(this.files, this.model.from, this.model.to).then(result => {
+            console.log(result);
+        });
     }
 }
 

@@ -1,27 +1,39 @@
 import {Injectable}     from '@angular/core';
-import {Headers, RequestOptions, Http, Response} from '@angular/http';
-import {PdfSpliter} from "./pdf-spliter";
+import {Http, Headers, Response, Request, RequestMethod, URLSearchParams, RequestOptions} from "@angular/http";
 import {Observable}     from 'rxjs';
+import {PdfSpliter}     from "./pdf-spliter";
 
 @Injectable()
 export class FormUploadService {
     url: string = "http://localhost:8080/upload";
+    responseData: any;
 
     constructor(private http: Http) {
     }
 
-    sendFile(file: string, from: number, to: number): Observable<PdfSpliter> {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-        let json = {
-            file: file,
-            from: from,
-            to: to
-        };
+    sendFile(files: File[], from: number, to: number) {
+        let headers = new Headers();
 
-        return this.http.post(this.url, json, options)
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        let formData: FormData = new FormData();
+        formData.append('file', files[0], files[0].name);
+        formData.append('from', from);
+        formData.append('to', to);
+
+        console.log(formData);
+
+        return new Promise((resolve, reject) => {
+            this.http.post(this.url, formData, {
+                headers: headers
+            }).subscribe(
+                res => {
+                    this.responseData = res.json();
+                    resolve(this.responseData);
+                },
+                error => {
+                    reject(error);
+                }
+            );
+        });
     }
 
 }
