@@ -1,17 +1,23 @@
-import {Component} from '@angular/core';
-import {FormUploadModel} from './form-upload.model';
+import {Component} from "@angular/core";
+import {FormUploadModel} from "./form-upload.model";
 import {FormUploadService} from "./form-upload.service";
 
 @Component({
     selector: 'form-upload',
-    templateUrl: './form-upload.component.html'
-    // styleUrls: ['./form-upload.component.scss']
+    templateUrl: './form-upload.component.html',
+    styles: ['.row {margin-top: 5%}']
 })
 export class FormUploadComponent {
     model = new FormUploadModel();
 
     constructor(private formUploadService: FormUploadService) {
 
+    }
+
+    onChange(event) {
+        var files = event.srcElement.files;
+        console.log(files);
+        this.model.file = files[0];
     }
 
     splitFile() {
