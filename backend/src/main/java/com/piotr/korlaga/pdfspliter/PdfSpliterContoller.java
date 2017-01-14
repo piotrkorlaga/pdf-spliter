@@ -34,6 +34,7 @@ public class PdfSpliterContoller {
 
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces("application/pdf")
     @Path("/upload")
     public Response uploadFile(@FormDataParam("file") InputStream is, @FormDataParam("file") FormDataContentDisposition fileDetails, @FormDataParam("from")
             int from, @FormDataParam("to") int to) {
