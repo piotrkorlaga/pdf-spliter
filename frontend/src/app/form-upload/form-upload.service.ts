@@ -1,14 +1,17 @@
-import {Injectable}     from '@angular/core';
-import {Http, Headers, Response, Request, RequestMethod, URLSearchParams, RequestOptions} from "@angular/http";
-import {Observable}     from 'rxjs';
-import {PdfSpliter}     from "./pdf-spliter";
+import {Injectable} from "@angular/core";
+import {Http, Headers, ResponseContentType} from "@angular/http";
 
 @Injectable()
 export class FormUploadService {
     url: string = "http://localhost:8080/upload";
-    responseData: any;
 
     constructor(private http: Http) {
+    }
+
+    showSplittedPdf(data: ArrayBuffer) {
+        var file = new Blob([new Uint8Array(data)], {type: 'application/pdf'});
+        var url = window.URL.createObjectURL(file);
+        window.open(url);
     }
 
     sendFile(files: File[], from: number, to: number) {
@@ -21,19 +24,14 @@ export class FormUploadService {
 
         console.log(formData);
 
-        return new Promise((resolve, reject) => {
-            this.http.post(this.url, formData, {
-                headers: headers
-            }).subscribe(
-                res => {
-                    this.responseData = res.json();
-                    resolve(this.responseData);
-                },
-                error => {
-                    reject(error);
-                }
-            );
-        });
+
+        this.http.post(this.url, formData, {
+            headers: headers,
+            responseType: ResponseContentType.ArrayBuffer
+        }).subscribe(
+            res => this.showSplittedPdf(res.arrayBuffer()),
+            error => console.log(error)
+        );
     }
 
 }

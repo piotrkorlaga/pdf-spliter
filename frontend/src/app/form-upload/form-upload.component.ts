@@ -22,9 +22,7 @@ export class FormUploadComponent {
     }
 
     splitFile() {
-        this.formUploadService.sendFile(this.files, this.model.from, this.model.to).then(result => {
-            console.log(result);
-        });
+        this.formUploadService.sendFile(this.files, this.model.from, this.model.to);
     }
 }
 
